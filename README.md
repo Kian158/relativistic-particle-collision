@@ -1,7 +1,7 @@
 # Relativistic Particle Collision
 
 This Python code simulates the collision of two particles using relativistic methods, and then visualises the outcome with a 3D plot.
-# Please note I have not been formally taught relativity, but rather self studied, so this may not be entirely accurate
+### Please note I have not been formally taught relativity, but rather self studied, so this may not be entirely accurate
 
 # Algorithm 
 - The initial momenta are defined as 3 vectors in NumPy arrays, along with mass
