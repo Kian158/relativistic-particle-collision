@@ -14,7 +14,7 @@ m2 = 0.000511 ## mass of electron in GeV / c^2
 
 ## define function to calculate total relativistic energy E = sqrt( px^2 +py^2 + pz^2 + m^2 )
 def totalEnergy(p, m):
-    return (np.dot(p,p) + m**2)
+    return np.sqrt((np.dot(p,p) + m**2))
 
 E1 = totalEnergy(p1, m1)
 E2 = totalEnergy(p2, m2)
@@ -44,14 +44,14 @@ p2_prime, E2_prime = lorentz_boost(p2, E2, vCOM) ## lorentz boost data
 
 
 ptot = p1_prime + p2_prime
-s = (E1_prime + E2_prime)**2 + np.dot(ptot,ptot) ## calculate the mandelstam variable (total invariant mass squared)
+s = (E1_prime + E2_prime)**2 - np.dot(ptot, ptot) ## calculate the mandelstam variable (total invariant mass squared)
 
 p_star = np.sqrt ( (( s - (m1 + m2)**2 ) * ( s - (m1 - m2)**2 ) ) / (4 * s) ) ## the magnitude of both resultant momentum vectors
 
 ## we pick a random vector for the first outgoing particle
 N = np.array([ np.random.rand(), np.random.rand(), np.random.rand()])
 
-n = N / np.dot(N, N) ## make it a unit vector
+n = N / np.sqrt(np.dot(N, N)) ## make it a unit vector
 
 p1_out = p_star * n
 p2_out = p_star * n * -1 ## calculate output momenta from p* and our random vector
@@ -85,7 +85,7 @@ vectors = [p1, p2, p1_final, p2_final]
 colors = ['cyan', 'blue', 'yellow', 'red']
 labels = ['Before particle 1', 'Before particle 2', 'After particle 1', 'After particle 2']
 
-max_mom = 1.5
+max_mom = max(np.linalg.norm(v) for v in vectors) * 1.2
 
 plot_vectors(vectors, colors, labels)
 
